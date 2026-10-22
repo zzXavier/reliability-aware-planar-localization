@@ -1,9 +1,7 @@
-# P03 交接记录
+# P03 handoff
 
-当前阶段：上游版本已固定，正式验收待完成。
-
-最近已核实：项目远端以及 UPSTREAM.md 中的源码提交。
-
-待执行：运行上游入口 realtime_demo.py ，保存日志，再按项目 README 的实验目标添加留出集对照。
-
-验收要求：从干净克隆运行演示与正式基线，使用保存的预测重建结果，涉及训练则测试权重重载。
+- Project: P03 / reliability-aware-planar-localization.
+- Working upstream: original XFeat pretrained checkpoint, pinned in UPSTREAM.md. Upstream minimal example completed on CPU including the 100-iteration stress loop. On this Windows CUDA build we forced CPU availability for the standalone author example; project commands set CUDA_VISIBLE_DEVICES before importing torch.
+- Last verified: synthetic known-homography, insufficient-match and calibration-denominator tests; ORB and XFeat generated-poster demo.
+- Formal run: CPU evaluation on official HPatches ZIP in progress. Retain private status until formal outputs and a second clean checkout are verified.
+- Next: run `python run.py reproduce --out work/full`, then compare `python run.py evaluate --predictions work/full/predictions.jsonl --out work/rebuilt` to its generated tables.
