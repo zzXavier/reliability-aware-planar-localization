@@ -2,6 +2,6 @@
 
 - Project: P03 / reliability-aware-planar-localization.
 - Working upstream: original XFeat pretrained checkpoint, pinned in UPSTREAM.md. Upstream minimal example completed on CPU including the 100-iteration stress loop. On this Windows CUDA build we forced CPU availability for the standalone author example; project commands set CUDA_VISIBLE_DEVICES before importing torch.
-- Last verified: synthetic known-homography, insufficient-match and calibration-denominator tests; ORB and XFeat generated-poster demo.
-- Formal run: CPU evaluation on official HPatches ZIP in progress. Retain private status until formal outputs and a second clean checkout are verified.
-- Next: run `python run.py reproduce --out work/full`, then compare `python run.py evaluate --predictions work/full/predictions.jsonl --out work/rebuilt` to its generated tables.
+- `hpatches-cpu-v1` finished on a Core i7-13650HX in a fresh Python 3.11.9 environment, official torch 2.4.1+cpu. Full inference/evaluation took 70.88 seconds after verifying inputs. `results/run.json` records the 39 development and 77 test sequences.
+- Three unit tests passed (geometry, calibration/failed-estimate denominators, interrupted HTTP transfer). The generated-poster demo and all 1,160 method/pair observations completed successfully. Rebuilding `results/summary.csv` from those observations produced SHA-256 `085d016bc340922fca8760af9e6329c0755041e4176830c4bc890008468e1fe5`. The prediction file SHA-256 is `c37efd976cc6c84f0eb088522449b571f82598bfdc2f4d84d179f97216e22c01`.
+- Release check: clone the private repository into a new directory, run `python run.py reproduce --out work/full` and `python run.py evaluate --predictions work/full/predictions.jsonl --out work/rebuilt`, then verify both result tables against the published observations.
