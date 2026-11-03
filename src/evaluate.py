@@ -2,7 +2,7 @@ import csv
 import json
 from pathlib import Path
 from statistics import median
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 RULES = ("matches", "inlier_ratio", "reliability")
 
@@ -70,15 +70,16 @@ def evaluate(rows, cfg, out):
 def draw_chart(rows, path):
     image = Image.new("RGB", (830, 92 + len(rows)*52), "#f8fafc")
     d = ImageDraw.Draw(image)
-    d.text((18, 12), "HPatches | held-out reliability, same estimated homographies", fill="#182e47")
-    d.text((18, 34), "Blue = accepted / all   |   Orange = incorrect accepts / all   |   correct at <= 5 px", fill="#384657")
+    heading,body = ImageFont.load_default(size=19), ImageFont.load_default(size=13)
+    d.text((18, 8), "HPatches | held-out reliability, same estimated homographies", font=heading, fill="#182e47")
+    d.text((18, 36), "Blue = accepted / all   |   Orange = incorrect accepts / all   |   correct at <= 5 px", font=body, fill="#384657")
     for i, r in enumerate(rows):
         y = 72 + i*52
-        d.text((18, y), r["method"]+" / "+r["rule"], fill="#182e47")
+        d.text((18, y), r["method"]+" / "+r["rule"], font=body, fill="#182e47")
         x, width = 180, 460
         for j, (key, color) in enumerate([("coverage","#397ab3"),("false_accept_fraction","#be6339")]):
             offset = y+j*14
             d.rectangle((x,offset,x+width,offset+9),fill="#e4e9ee")
             d.rectangle((x,offset,x+round(width*r[key]),offset+9),fill=color)
-            d.text((x+width+12,offset-2), f"{r[key]:.1%}", fill="#182e47")
+            d.text((x+width+12,offset-3), f"{r[key]:.1%}", font=body, fill="#182e47")
     image.save(path)

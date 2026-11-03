@@ -1,0 +1,44 @@
+[
+  {
+    "method": "ORB",
+    "rule": "matches",
+    "sequence": "v_bricks",
+    "target": 6,
+    "corner_error": 1224.914408227604
+  },
+  {
+    "method": "ORB",
+    "rule": "inlier_ratio",
+    "sequence": "i_bridger",
+    "target": 6,
+    "corner_error": 70.48771615746415
+  },
+  {
+    "method": "ORB",
+    "rule": "reliability",
+    "sequence": "i_santuario",
+    "target": 6,
+    "corner_error": 83.74157833628581
+  },
+  {
+    "method": "XFeat",
+    "rule": "matches",
+    "sequence": "v_calder",
+    "target": 6,
+    "corner_error": 722.204585130164
+  },
+  {
+    "method": "XFeat",
+    "rule": "inlier_ratio",
+    "sequence": "v_calder",
+    "target": 6,
+    "corner_error": 722.204585130164
+  },
+  {
+    "method": "XFeat",
+    "rule": "reliability",
+    "sequence": "v_calder",
+    "target": 6,
+    "corner_error": 722.204585130164
+  }
+]

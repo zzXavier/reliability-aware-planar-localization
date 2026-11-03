@@ -2,7 +2,11 @@
 
 Estimate a planar homography with XFeat or ORB, then decide whether to accept it. Both matchers use the same robust estimator. The formal experiment calibrates three acceptance rules on development scenes and evaluates their failure/coverage tradeoff on separate HPatches scenes.
 
-![Generated poster with ground truth and estimated outlines](examples/demo.png)
+![Held-out acceptance and incorrect-accept fractions for the six matcher/rule combinations](results/comparison.png)
+
+On **77 held-out sequences (385 pairs)**, XFeat's combined rule accepted 384 estimates, including 29 with mean four-corner error above 5 px. Its median accepted error was 1.07 px. The XFeat inlier-only rule accepted 383 estimates with 28 incorrect accepts. ORB's combined rule accepted 348 estimates with 53 incorrect accepts. The combined rule's additional coverage came with extra mistakes at this development operating point. A failure on `v_calder` 1→6 passed all three XFeat rules despite a 722.20 px corner error.
+
+[Held-out table](results/summary.csv) · [Worst accepted failures](results/false_accepts.json) · [Exact splits and measured environment](results/run.json) · [Generated poster and match lines](examples/demo.png)
 
 With Python 3.11 and Git installed, run the following from a clean clone. CPU inference is intentional. Downloads use the repository-local `.cache/` unless you supply `--cache PATH`.
 
@@ -22,7 +26,7 @@ python run.py reproduce --out work/full
 python run.py evaluate --predictions work/full/predictions.jsonl --out work/rebuilt
 ```
 
-The formal run fetches the pretrained XFeat code/checkpoint and verifies a 1.19 GiB archive of full images from HPatches. It records each estimated homography, match count, inlier/coverage statistics, operating score and correctness measurement in JSON Lines. The evaluation step only needs Pillow and saved predictions. It rebuilds a CSV for all scenes and the separate illumination/viewpoint groups, a comparison plot, and the largest-error accepted pair for each rule when one exists. Once published, `python run.py evaluate` also rebuilds from the included prediction file.
+The formal run fetches the pretrained XFeat code/checkpoint and verifies a 1.19 GiB archive of full images from HPatches. Interrupted dataset downloads can resume. It records each estimated homography, match count, inlier/coverage statistics, operating score and correctness measurement in JSON Lines. The evaluation step only needs Pillow and saved predictions. It rebuilds a CSV for all scenes and the separate illumination/viewpoint groups, a comparison plot, and the largest-error accepted pair for each rule when one exists. `python run.py evaluate` rebuilds these artifacts directly from the included prediction file.
 
 ## Evaluation protocol
 
